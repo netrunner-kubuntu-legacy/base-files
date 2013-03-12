@@ -1,9 +1,9 @@
-NAME="Ubuntu"
-VERSION="13.04, Raring Ringtail"
-ID=ubuntu
+NAME="Netrunner"
+VERSION="13.06, Enigma"
+ID=netrunner
 ID_LIKE=debian
-PRETTY_NAME="Ubuntu Raring Ringtail (development branch)"
-VERSION_ID="13.04"
-HOME_URL="http://www.ubuntu.com/"
-SUPPORT_URL="http://help.ubuntu.com/"
-BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
+PRETTY_NAME="Netrunner 13.06 Enigma"
+VERSION_ID="13.06"
+HOME_URL="www.netrunner-os.com"
+SUPPORT_URL="forums.netrunner-os.com"
+BUG_REPORT_URL="https://github.com/netrunner/netrunner-feedback"
