@@ -5,8 +5,6 @@ install_local_dir() {
   if [ ! -d $1 ]; then
     mkdir -p $1
   fi
-  #chown root:staff $1 2> /dev/null || true
-  #chmod 2775 $1 2> /dev/null || true
 }
 
 install_from_default() {
@@ -131,9 +129,12 @@ if [ "$1" = "configure" ] && [ "$2" != "" ]; then
   fi
 
   if [ -f /etc/profile ]; then
-    md5=`md5sum /etc/profile | cut -f 1 -d\ `
-    if grep -qw "$md5" /usr/share/base-files/profile.md5sums; then
-        cp /usr/share/base-files/profile /etc/profile
+    md5=`md5sum /etc/profile | cut -f 1 -d " "`
+    if grep -q "$md5" /usr/share/base-files/profile.md5sums; then
+      if ! cmp -s /usr/share/base-files/profile /etc/profile; then
+        cp -p /usr/share/base-files/profile /etc/profile
+        echo Updating unmodified /etc/profile to current default.
+      fi
     fi
   fi
 fi
@@ -148,3 +149,4 @@ if dpkg --compare-versions "$2" le-nl "5.0.0ubuntu22" &&
 	rm /etc/apt/apt.conf.d/00secure
     fi
 fi
+

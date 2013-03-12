@@ -25,10 +25,6 @@ clean:
 	rm -f `find . -name "*~"`
 	rm -rf debian/tmp debian/lsb-release-udeb debian/files* core debian/substvars
 
-	# update md5sums list for profile
-	LIST="`md5sum share/profile | cut -f 1 -d\  | cat share/profile.md5sums - | sort -u`"; \
-	echo "$$LIST" > share/profile.md5sums
-
 binary-arch: build
 	rm -rf debian/tmp
 	install -d debian/tmp/DEBIAN $(docdir) debian/tmp/etc/dpkg/origins
@@ -39,6 +35,7 @@ binary-arch: build
 	cat debian/copyright.in | sed -e "s&#OSNAME#&$(OSNAME)&g" \
 		> $(docdir)/copyright
 	chmod 644 $(docdir)/copyright
+	sh debian/check-etc-profile-md5sum
 	sed -e "s/#VENDORFILE#/$(VENDORFILE)/g" debian/postinst.in \
 		> debian/tmp/DEBIAN/postinst
 	chmod 755 debian/tmp/DEBIAN/postinst
@@ -47,15 +44,16 @@ binary-arch: build
 	cd debian/tmp && install -d `cat ../directory-list`
 	install -p -m 644 share/* debian/tmp/usr/share/base-files
 	install -p -m 644 licenses/* debian/tmp/usr/share/common-licenses
+	install -p -m 644 debian/lintian \
+		debian/tmp/usr/share/lintian/overrides/$(package)
 	ln -s GFDL-1.3 debian/tmp/usr/share/common-licenses/GFDL
 	ln -s LGPL-3 debian/tmp/usr/share/common-licenses/LGPL
 	ln -s GPL-3 debian/tmp/usr/share/common-licenses/GPL
 	ln -s README $(docdir)/FAQ
 	install -p -m 644 etc/* debian/tmp/etc
 	install -p -m 755 debian/update-motd.d/* debian/tmp/etc/update-motd.d
-	rm -f debian/tmp/etc/motd
 ifeq ($(DEB_HOST_GNU_SYSTEM),gnu)
-	rmdir debian/tmp/proc
+	rmdir debian/tmp/sys
 endif
 	sed -e "s&#OSNAME#&$(OSNAME)&g" share/info.dir \
 		> debian/tmp/usr/share/base-files/info.dir
@@ -63,6 +61,8 @@ endif
 		> debian/tmp/etc/issue
 	sed -e "s&#OSNAME#&$(OSNAME)&g" etc/issue.net \
 		> debian/tmp/etc/issue.net
+	sed -e "s&#OSNAME#&$(OSNAME)&g" etc/os-release \
+		> debian/tmp/etc/os-release
 	gzip -9 $(docdir)/changelog
 	cd debian/tmp && \
 		md5sum `find usr -type f` > DEBIAN/md5sums
@@ -72,8 +72,7 @@ endif
 	cd debian/tmp && chmod 1777 `cat ../1777-dirs`
 	cd debian/tmp && chmod 2775 `cat ../2775-dirs`
 	cd debian/tmp && chmod 700 root
-	cd debian/tmp && chmod 700 `cat ../700-dirs`
-	dpkg-gencontrol -pbase-files -isp
+	dpkg-gencontrol -pbase-files
 	dpkg --build debian/tmp ..
 
 binary-indep: build

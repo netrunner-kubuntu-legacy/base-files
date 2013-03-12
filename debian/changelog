@@ -1,3 +1,166 @@
+base-files (6.12ubuntu1) raring; urgency=low
+
+  * Merge from Debian unstable.  Remaining changes:
+    - Branding changes.
+    - Add /etc/lsb-release file.
+    - Add lsb-release-udeb package.
+    - Various bashrc extensions.
+    - Do not install /usr/local dirs with staff group writeability, as there
+      are cases where somebody can become any user but root (like NFS).
+    - Update the motd upgrade handling to know about /etc/motd.tail.
+    - Add default /etc/networks file.
+    - Added information about the docs web page.
+    - Restore order line in /etc/host.conf with a comment.
+    - Add update-motd scripts.
+    - Migrate /etc/os-release to a conffile.
+  * Add HOME_URL, SUPPORT_URL, and BUG_REPORT_URL to /etc/os-release.
+
+ -- Adam Conrad <adconrad@ubuntu.com>  Mon, 29 Oct 2012 17:53:44 +0000
+
+base-files (6.12) unstable; urgency=low
+
+  * Added HOME_URL, SUPPORT_URL and BUG_REPORT_URL to /etc/os-release.
+    Reported by Raphaël Hertzog. Closes: #681480.
+  * Added Breaks: sendfile (<< version in squeeze) to help sendfile bug
+    regarding improper modification of /etc/profile to be fixed faster.
+    Reported by Andreas Beckmann. Closes: #689835.
+  * Make /var/run and /var/lock absolute again.
+    Reported by Roger Leigh. Closes: #690345.
+
+ -- Santiago Vila <sanvila@debian.org>  Sat, 27 Oct 2012 17:41:00 +0200
+
+base-files (6.11ubuntu3) raring; urgency=low
+
+  * Tighten up the preinst /etc/os-release migration version check to
+    make sure we don't try to re-migrate (and delete) the SRU version
+    from quantal-proposed, which now includes the conffile migration.
+
+ -- Adam Conrad <adconrad@ubuntu.com>  Tue, 23 Oct 2012 21:36:16 +0100
+
+base-files (6.11ubuntu2) raring; urgency=low
+
+  * Add preinst magic to silently migrate /etc/os-release to a conffile.
+
+ -- Adam Conrad <adconrad@ubuntu.com>  Tue, 23 Oct 2012 12:05:20 +0100
+
+base-files (6.11ubuntu1) raring; urgency=low
+
+  * /etc/issue{,.net}, /etc/lsb-release, /etc/os-release: Welcome to Raring!
+  * Merge from Debian unstable.  Remaining changes:
+    - Branding changes.
+    - Add /etc/lsb-release file.
+    - Add lsb-release-udeb package.
+    - Various bashrc extensions.
+    - Do not install /usr/local dirs with staff group writeability, as there
+      are cases where somebody can become any user but root (like NFS).
+    - Update the motd upgrade handling to know about /etc/motd.tail.
+    - Add default /etc/networks file.
+    - Added information about the docs web page.
+    - Restore order line in /etc/host.conf with a comment.
+    - Add update-motd scripts.
+  * Drop the outdated replaces on an ancient pre-hardy lsb-release
+  * Drop the temporary leap-second workaround, no longer needed
+
+ -- Adam Conrad <adconrad@ubuntu.com>  Mon, 22 Oct 2012 16:57:35 +0100
+
+base-files (6.11) unstable; urgency=medium
+
+  * Create /etc/motd instead of /etc/motd.tail, with same default contents,
+    as initscripts is now using /etc/motd again as a real file.
+
+ -- Santiago Vila <sanvila@debian.org>  Sun, 17 Jun 2012 14:14:44 +0200
+
+base-files (6.10) unstable; urgency=low
+
+  * Record md5sums of unmodified /etc/profile versions so that we can
+    upgrade it automatically, as it's done in Ubuntu.
+  * In the initial install, create /etc/motd.tail instead of /etc/motd,
+    as /etc/motd is converted to a symlink by initscripts and /etc/motd.tail
+    is since a long time the master copy to which the output of uname is added.
+    Remove postinst code which tries to update /etc/motd, as it does no longer
+    work and the file has not changed in a lot of time. Will add code to
+    update /etc/motd.tail based on md5sum if it ever changes in a future.
+  * Implement proposed transition plan for group staff in /usr/local.
+    The file /etc/staff-group-for-usr-local is now created on upgrades
+    from releases before 6.10 and (for now) also on initial install.
+  * Removed reference to /etc/nsswitch.conf in extended description, as
+    the file is being moved to libc-bin.
+
+ -- Santiago Vila <sanvila@debian.org>  Sat, 09 Jun 2012 17:41:30 +0200
+
+base-files (6.9) unstable; urgency=low
+
+  * We can't make /etc/profile a conffile without triggering a piuparts
+    check which is considered to be serious. Sorry, /etc/profile
+    will be handled as before for now. Closes: #673767.
+
+ -- Santiago Vila <sanvila@debian.org>  Mon, 21 May 2012 15:12:06 +0200
+
+base-files (6.8) unstable; urgency=low
+
+  * Added /etc/os-release. Closes: #659853. Note: for stable releases
+    this file will look like it's suggested in the bug report above.
+    Also, like /etc/debian_version, this file should only be considered
+    meaningful for stable releases, which testing and unstable are not.
+  * By popular demand, make /etc/profile a conffile. Closes: #668871.
+  * Added /sys for all systems but the Hurd. Closes: #670091.
+  * Added /proc for the Hurd, as it's already being used.
+  * Added a lintian override for /root being 700.
+
+ -- Santiago Vila <sanvila@debian.org>  Thu, 17 May 2012 00:08:42 +0200
+
+base-files (6.7) unstable; urgency=low
+
+  * Switch to "compat" again in default /etc/nsswitch.conf. It is not
+    obsolete and it should not go away. Closes: #651356.
+    Thanks a lot to Petter Reinholdtsen.
+
+ -- Santiago Vila <sanvila@debian.org>  Sun, 04 Mar 2012 01:02:00 +0100
+
+base-files (6.6) unstable; urgency=low
+
+  * Switch to "files" instead of "compat" in default /etc/nsswitch.conf.
+    That was only useful for libc5. The new default will only take
+    effect for new installs. Thanks to Roger Leigh. Closes: #651356.
+  * Reword the very first question in base-files FAQ. Closes: #622200.
+  * When migrating /var/run and /var/lock, create relative symlinks
+    instead of absolute ones. Useful for chroots. Closes: #652301.
+
+ -- Santiago Vila <sanvila@debian.org>  Sat, 03 Mar 2012 16:35:22 +0100
+
+base-files (6.5ubuntu11) quantal; urgency=low
+
+  * /etc/issue, /etc/issue.net, /etc/lsb-release, /etc/os-release: Prepare
+    for Quantal release.
+
+ -- Matthias Klose <doko@ubuntu.com>  Tue, 09 Oct 2012 14:09:59 +0200
+
+base-files (6.5ubuntu10) quantal; urgency=low
+
+  * Correct PRETTY_NAME in os-release to use "(development branch)"
+
+ -- Dmitrijs Ledkovs <dmitrij.ledkov@ubuntu.com>  Mon, 10 Sep 2012 15:39:32 +0100
+
+base-files (6.5ubuntu9) quantal; urgency=low
+
+  * Install /etc/os-release. LP: #947236.
+
+ -- Matthias Klose <doko@ubuntu.com>  Mon, 10 Sep 2012 15:38:03 +0200
+
+base-files (6.5ubuntu8) quantal; urgency=low
+
+  * Call date -s $(date -R) on upgrade, to resync any clocks that might
+    be desynced (and causing pthread spinning in the kernel) due to the leap
+    second.  LP: #1020285.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Tue, 03 Jul 2012 10:43:12 -0700
+
+base-files (6.5ubuntu7) quantal; urgency=low
+
+  * /etc/issue, /etc/issue.net, /etc/lsb-release: Welcome to Quantal!
+
+ -- Matthias Klose <doko@ubuntu.com>  Wed, 25 Apr 2012 12:54:00 +0200
+
 base-files (6.5ubuntu6) precise; urgency=low
 
   * /etc/issue, /etc/issue.net, /etc/lsb-release: Prepare for Precise
@@ -2025,3 +2188,4 @@ base-files (1.2.0-1) unstable; urgency=low
     /etc/passwd and /etc/group are installed by the "base-passwd" package.
 
  -- Bruce Perens <bruce@pixar.com>  Thu, 14 Nov 1996 21:02:09 -0800
+
