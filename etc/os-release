@@ -1,9 +1,9 @@
 NAME="Netrunner"
-VERSION="13.06, Enigma"
+VERSION="13.12, Enigma"
 ID=netrunner
 ID_LIKE=debian
-PRETTY_NAME="Netrunner 5 Enigma (13.06)"
-VERSION_ID="13.06"
+PRETTY_NAME="Netrunner 5 Enigma (13.12)"
+VERSION_ID="13.12"
 HOME_URL="www.netrunner-os.com"
 SUPPORT_URL="forums.netrunner-os.com"
 BUG_REPORT_URL="https://github.com/netrunner/netrunner-feedback"
