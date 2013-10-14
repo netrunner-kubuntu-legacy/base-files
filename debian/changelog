@@ -1,3 +1,9 @@
+base-files (6.12ubuntu1+netrunner4) saucy; urgency=low
+
+  * Updated codename to Enigma-II
+
+ -- Leszek Lesner <leszek@zevenos.com>  Mon, 14 Oct 2013 16:38:52 +0200
+
 base-files (6.12ubuntu1+netrunner3) enigma-1312; urgency=low
 
   * Updated versions to new release
