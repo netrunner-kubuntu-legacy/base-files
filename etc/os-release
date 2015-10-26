@@ -1,9 +1,9 @@
 NAME="Netrunner"
-VERSION="16"
+VERSION="2015.11u"
 ID=netrunner
 ID_LIKE=debian
-PRETTY_NAME="Netrunner 16"
-VERSION_ID="16"
+PRETTY_NAME="Netrunner 2015.11u"
+VERSION_ID="2015.11u"
 HOME_URL="http://www.netrunner.com"
 SUPPORT_URL="http://forums.netrunner-os.com"
 BUG_REPORT_URL="https://github.com/netrunner/netrunner-feedback"
