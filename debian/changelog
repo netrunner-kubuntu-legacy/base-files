@@ -1,3 +1,33 @@
+base-files (7.2ubuntu9+netrunner8) vivid; urgency=low
+
+  * Use correct urls on os-release 
+
+ -- Leszek Lesner <leszek@zevenos.com>  Mon, 11 May 2015 09:51:09 +0200
+
+base-files (7.2ubuntu9+netrunner7) vivid; urgency=low
+
+  * Change distrib_id to ubuntu for add-apt-repositories and other to work correctly
+
+ -- Leszek Lesner <leszek@zevenos.com>  Thu, 07 May 2015 21:10:25 +0200
+
+base-files (7.2ubuntu9+netrunner6) vivid; urgency=low
+
+  * Updated for Netrunner 16
+
+ -- Leszek Lesner <leszek@zevenos.com>  Mon, 13 Apr 2015 11:58:49 +0200
+
+base-files (7.2ubuntu7+netrunner5) utopic; urgency=low
+
+  * Moved 10-help-text from netrunner-system
+
+ -- Leszek Lesner <leszek@zevenos.com>  Thu, 30 Oct 2014 11:25:34 +0100
+
+base-files (7.2ubuntu7+netrunner4) utopic; urgency=low
+
+  * Updated for Netrunner 15
+
+ -- Leszek Lesner <leszek@zevenos.com>  Tue, 28 Oct 2014 12:50:53 +0100
+
 base-files (6.12ubuntu1+netrunner4) saucy; urgency=low
 
   * Updated codename to Enigma-II

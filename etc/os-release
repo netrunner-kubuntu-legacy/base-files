@@ -1,9 +1,9 @@
 NAME="Netrunner"
-VERSION="15, Prometheus"
+VERSION="16"
 ID=netrunner
 ID_LIKE=debian
-PRETTY_NAME="Netrunner 15 (Prometheus)"
-VERSION_ID="15"
-HOME_URL="www.netrunner-os.com"
-SUPPORT_URL="forums.netrunner-os.com"
+PRETTY_NAME="Netrunner 16"
+VERSION_ID="16"
+HOME_URL="http://www.netrunner.com"
+SUPPORT_URL="http://forums.netrunner-os.com"
 BUG_REPORT_URL="https://github.com/netrunner/netrunner-feedback"
